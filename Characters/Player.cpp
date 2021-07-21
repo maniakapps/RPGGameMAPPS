@@ -2,6 +2,7 @@
 // Created by ap on 20/07/21.
 //
 
+#include <iostream>
 #include "Player.h"
 
 Player::Player(string n, int h , int a, int d): GameCharacter(n, h, a, d) {
@@ -31,4 +32,10 @@ void Player::lootRoom(Room *room) {
 void Player::changeRoom(Room *newRoom) {
     previousRoom = currentRoom;
     currentRoom = newRoom;
+}
+
+void Player::displayStats(){
+    std::cout << "Ahora tus estadisticas son: \n"
+                 "Salud:  " << currentHealth
+         <<"\nataque: " << attack << "\ndefensa: " << defence << "\n";
 }

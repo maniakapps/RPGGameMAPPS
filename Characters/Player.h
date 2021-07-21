@@ -14,5 +14,6 @@ public:
     void increaseStats(int, int, int);
     void lootRoom(Room *);
     void changeRoom(Room *);
+    void displayStats();
 };
 #endif //RPGGAME_PLAYER_H

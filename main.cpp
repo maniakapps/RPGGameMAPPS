@@ -10,6 +10,7 @@ int main() {
     cout << "¡Bienvenido a Maniakapps RPG! \nIntroduce el nombre de tu jugador: ";
     string playerName;
     cin >> playerName;
+
     Player player = Player(playerName, 100, 20, 10);
 
     // Iniciando la primera hanitación.

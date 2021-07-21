@@ -22,6 +22,7 @@ void Dungeon::printActions(int numActions, string actions[]) {
 
 int Dungeon::runDungeon() {
     cout << "Bienvenido al Dungeon! " << player.name << " adentro encontrarás un tesoro.... pero también enemigos. \nEtra bajo tu propio riesgo\n";
+    player.displayStats();
     player.currentRoom = &rooms[0];
     player.previousRoom = &rooms[0];
     while (true){
@@ -111,9 +112,9 @@ void Dungeon::handleRoomWithEnemy(Room *room) {
 void Dungeon::handleLootActions(Room *room){
     player.lootRoom(room);
     for (auto & item : room->items) {
+        player.increaseStats(item.health, item.attack, item.defence);
         cout << "Abriste un cofre y encontraste: " << item.name<<"\n";
-        cout << "Ahora tus estadisticas son: \nSalud:  \n" << player.currentHealth
-        <<"\nataque: " << player.attack << "\ndefensa: \n" << player.defence;
+        player.displayStats();
     }
     room->clearLoot();
 }
@@ -169,7 +170,7 @@ void Dungeon::handleFightActions(GameCharacter* enemy) {
         // handle enemy actions
         int damage = player.takeDamage(enemy->attack);
         cout << enemy->name << " inflingio " << damage << "de daño.\n";
-        cout << "Ahora tienes" << player.currentHealth << " puntos de vida.\n";
+        cout << "Ahora tienes " << player.currentHealth << " puntos de vida.\n";
         if (player.checkIsDead()){
             return;
         }
@@ -180,7 +181,7 @@ void Dungeon::handleMovementActions(Room *room) {
     while (true){
         if (room->pos == 0){
             string actions[] = {
-                    "a. Moverce a la derecha",
+                    "a. Moverse a la derecha",
                     "b. Mover hacia abajo"
             };
             printActions(2, actions);
@@ -197,7 +198,7 @@ void Dungeon::handleMovementActions(Room *room) {
             }
         }else if (room->pos == 1){
             string actions[] = {
-                    "a. Moverce a la izquierda",
+                    "a. Moverse a la izquierda",
             };
             printActions(1, actions);
             string input;
@@ -210,7 +211,7 @@ void Dungeon::handleMovementActions(Room *room) {
             }
         } else if (room->pos == 2){
             string actions[] = {
-                    "a. Moverce hacia arriba",
+                    "a. Moverse hacia arriba",
                     "b. Mover hacia la derecha"
             };
             printActions(2, actions);
