@@ -37,23 +37,53 @@ int main() {
     Room fourthRoom = Room(3, false, vector<Item>(), fourthRoomEnemies);
 
     // Quinto room
-    GameCharacter finalBoss = GameCharacter("Jefe final", 4000, 150, 200);
+    GameCharacter initialBoss = GameCharacter("Mountruo fuerte inicial", 140, 100, 80);
     vector<GameCharacter> fifthRoomEnemies;
-    fifthRoomEnemies.push_back(finalBoss);
+    fifthRoomEnemies.push_back(initialBoss);
     Room fifthRoom = Room(4, false, vector<Item>(), fifthRoomEnemies);
 
-    Dungeon dungeon = Dungeon(player);
+    // sixth room
+    GameCharacter finalBoss = GameCharacter("Jefe final", 4000, 150, 200);
+    vector<GameCharacter> sixthRoomEnemies;
+    fifthRoomEnemies.push_back(finalBoss);
+    Room sixthRoom = Room(5, true, vector<Item>(), fifthRoomEnemies);
+
+    // Dungeons
+    Dungeon dungeon = Dungeon(player, 1);
     dungeon.rooms[0] = firstRoom;
     dungeon.rooms[1] = secondRoom;
     dungeon.rooms[2] = thirdRoom;
     dungeon.rooms[3] = fourthRoom;
     dungeon.rooms[4] = fifthRoom;
+    dungeon.rooms[5] = sixthRoom;
+
+    Dungeon dungeon2 = Dungeon(player, 2);
+    dungeon2.rooms[0] = firstRoom;
+    dungeon2.rooms[1] = secondRoom;
+    dungeon2.rooms[2] = thirdRoom;
+    dungeon2.rooms[3] = fourthRoom;
+    dungeon2.rooms[4] = fifthRoom;
+    dungeon2.rooms[5] = sixthRoom;
 
     while (true) {
-        int result = dungeon.runDungeon();
+        cout << "Elije una Dungeon 1, 2 o 3 para salir: ";
+        int dungSelection, result;
+        cin >> dungSelection;
+        if (dungSelection==1){
+        result = dungeon.runDungeon();
         if (result == 0){
+            cout << "Adios!";
+            break;
+        }
+        }else if(dungSelection==2) {
+            result = dungeon2.runDungeon();
+            if (result == 0){
+                cout << "Adios!";
+                break;
+            }
+        }else{
+            cout << "Adios!";
             break;
         }
     }
-    cout << "Adios!";
 }

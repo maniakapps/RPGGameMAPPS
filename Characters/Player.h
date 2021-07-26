@@ -10,10 +10,10 @@ public:
     Room *previousRoom;
     vector<Item> inventory;
     explicit Player(string="", int = 0, int = 0, int = 0);
-    void addItem(Item);
+    void addItem(const Item&);
     void increaseStats(int, int, int);
     void lootRoom(Room *);
     void changeRoom(Room *);
-    void displayStats();
+    void displayStats() override;
 };
 #endif //RPGGAME_PLAYER_H

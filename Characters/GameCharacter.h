@@ -12,7 +12,9 @@ public:
     int maxHealth, currentHealth, attack, defence;
     GameCharacter(string, int , int, int);
     int takeDamage(int);
-    bool checkIsDead();
+    bool checkIsDead() const;
+
+    virtual void displayStats();
 
 };
 #endif //RPGGAME_GAMECHARACTER_H

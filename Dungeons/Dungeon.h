@@ -5,10 +5,12 @@
 #ifndef RPGGAME_DUNGEON_H
 #define RPGGAME_DUNGEON_H
 class Dungeon{
+    private:
+    int number;
 public:
     Player player;
-    Room rooms[5];
-    explicit Dungeon(Player);
+    Room rooms[6];
+    explicit Dungeon(Player, int);
     int runDungeon();
     void enterRoom(Room *);
     static void handleEmptyRoom();

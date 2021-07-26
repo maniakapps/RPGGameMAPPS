@@ -5,12 +5,12 @@
 #include "Dungeon.h"
 #include "../Characters/Player.h"
 #include <iostream>
-#include <utility>
 
 using namespace std;
 
-Dungeon::Dungeon(Player p) {
+Dungeon::Dungeon(Player p, int nmbr) {
     player = std::move(p);
+    number = nmbr;
 }
 
 void Dungeon::printActions(int numActions, string actions[]) {
@@ -21,7 +21,7 @@ void Dungeon::printActions(int numActions, string actions[]) {
 }
 
 int Dungeon::runDungeon() {
-    cout << "Bienvenido al Dungeon! " << player.name << " adentro encontrarás un tesoro.... pero también enemigos. \nEtra bajo tu propio riesgo\n";
+    cout << "Bienvenido al Dungeon " << number << " ! " << player.name << " dentro encontrarás tesoros.... pero también enemigos. \nEtra bajo tu propio riesgo\n";
     player.displayStats();
     player.currentRoom = &rooms[0];
     player.previousRoom = &rooms[0];
@@ -88,6 +88,7 @@ void Dungeon::handleRoomWithChest(Room * room) {
 void Dungeon::handleRoomWithEnemy(Room *room) {
     GameCharacter enemy = room->enemies.front();
     cout << "Entraste a la habitación y ves un " << enemy.name << ".\n";
+    enemy.displayStats();
     string actions[] ={
             "a. Enfrentar a " + enemy.name,
             "b. Volver a la habitación anterior."
@@ -152,6 +153,7 @@ void Dungeon::handleFightActions(GameCharacter* enemy) {
         if (input == "a"){
             int damage = enemy-> takeDamage(player.attack);
             cout << "Tus ataques inflingieron " << damage << " de daño.\n";
+            enemy->displayStats();
         }else if (input == "b"){
             player.changeRoom(player.previousRoom);
             enterRoom(player.currentRoom);
@@ -171,6 +173,7 @@ void Dungeon::handleFightActions(GameCharacter* enemy) {
         int damage = player.takeDamage(enemy->attack);
         cout << enemy->name << " inflingio " << damage << "de daño.\n";
         cout << "Ahora tienes " << player.currentHealth << " puntos de vida.\n";
+        enemy->displayStats();
         if (player.checkIsDead()){
             return;
         }
@@ -241,4 +244,3 @@ void Dungeon::handleMovementActions(Room *room) {
     }
 
 }
-

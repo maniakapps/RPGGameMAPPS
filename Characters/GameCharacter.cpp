@@ -3,8 +3,7 @@
 //
 
 #include "GameCharacter.h"
-
-#include <utility>
+#include <iostream>
 
 GameCharacter::GameCharacter(string n, int h, int a, int d) {
     name = std::move(n);
@@ -20,6 +19,13 @@ int GameCharacter::takeDamage(int amount) {
     return damage;
 }
 
-bool GameCharacter::checkIsDead(){
+bool GameCharacter::checkIsDead() const{
     return currentHealth <= 0;
+}
+
+void GameCharacter::displayStats() {
+        cout << "Estadisticas del enemigo: \n"
+                     "Salud:  " << currentHealth
+                  <<"\nataque: " << attack << "\ndefensa: " << defence << "\n";
+
 }
